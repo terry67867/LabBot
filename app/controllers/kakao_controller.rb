@@ -46,6 +46,27 @@ class KakaoController < ApplicationController
       #     element_html << element.css('tr td').text
       #
       #   bot_message = element_list
+      elsif user_message[0] == '!'
+        keyword = user_message[1..-1]
+        # url = "https://ko.wikipedia.org/wiki/#{keyword}"
+        # response = RestClient.get(URI.encode(url))
+        # doc = Nokogiri::HTML(response)
+        # elementType = doc.css("table.infobox").children[9].text.strip.split[2]
+        # bot_message = elementType
+
+        url = "https://ko.wikipedia.org/wiki/%EC%9B%90%EC%86%8C_%EB%AA%A9%EB%A1%9D"
+        response = RestClient.get(url)
+        doc = Nokogiri::HTML(response)
+        doc.css('table.sortable tr').each do |o|
+          # o.css('td')[3].css('a').text
+        oo = o.css('td')[2]
+        if !oo.nil?
+          puts oo.css('a').text
+        end
+
+        end
+
+
       else
         bot_message = "해당 기능은 지원하지 않습니다."
       end
